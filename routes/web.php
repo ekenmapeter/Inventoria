@@ -48,6 +48,11 @@ Route::get('/', function () {
 });
 
 Route::middleware('auth')->group(function () {
+    // Home redirect
+    Route::get('/home', function () {
+        return redirect('/dashboard');
+    });
+
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/api/dashboard-stats', [DashboardController::class, 'getStats'])->name('dashboard.stats');
