@@ -103,7 +103,11 @@
                     @endif
                 </div>
                 <div class="flex-1 mb-12 lg:mb-0 lg:mr-12 flex items-center justify-center">
-                    <img src="{{ asset('images/welcome.png') }}" alt="Welcome Illustration" class="max-w-full h-auto" />
+                    @if(\App\Models\SiteSetting::get('site_logo'))
+                        <img src="{{ \Illuminate\Support\Facades\Storage::url(\App\Models\SiteSetting::get('site_logo')) }}" alt="Site Logo" class="max-w-full h-auto" />
+                    @else
+                        <img src="{{ asset('images/welcome.png') }}" alt="Welcome Illustration" class="max-w-full h-auto" />
+                    @endif
                 </div>
             </main>
         </div>

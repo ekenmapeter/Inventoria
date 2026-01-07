@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Deposit;
+use App\Notifications\DepositApproved;
+use App\Notifications\DepositRejected;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -49,6 +51,9 @@ class DepositController extends Controller
             'subscription_status' => 'active',
         ]);
 
+        // Send notification
+        $deposit->user->notify(new DepositApproved($deposit));
+
         return redirect()->route('admin.deposits.show', $deposit)
             ->with('success', 'Deposit approved and payment created successfully.');
     }
@@ -64,6 +69,9 @@ class DepositController extends Controller
             'admin_id' => Auth::id(),
             'notes' => $request->notes ?? $deposit->notes,
         ]);
+
+        // Send notification
+        $deposit->user->notify(new DepositRejected($deposit, $request->notes));
 
         return redirect()->route('admin.deposits.show', $deposit)
             ->with('success', 'Deposit rejected successfully.');

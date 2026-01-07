@@ -33,10 +33,23 @@ class PackageController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'amount' => 'required|numeric|min:0',
             'type' => 'required|in:subscription,fundraise',
             'is_active' => 'boolean',
         ]);
+
+        if ($request->type === 'subscription') {
+            $request->validate([
+                'amount' => 'required|numeric|min:0',
+                'min_amount' => 'nullable|numeric|min:0',
+                'max_amount' => 'nullable|numeric|min:0',
+            ]);
+        } elseif ($request->type === 'fundraise') {
+            $request->validate([
+                'amount' => 'nullable|numeric|min:0',
+                'min_amount' => 'required|numeric|min:0',
+                'max_amount' => 'required|numeric|min:0|gte:min_amount',
+            ]);
+        }
 
         Package::create($request->all());
 
@@ -67,10 +80,23 @@ class PackageController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'amount' => 'required|numeric|min:0',
             'type' => 'required|in:subscription,fundraise',
             'is_active' => 'boolean',
         ]);
+
+        if ($request->type === 'subscription') {
+            $request->validate([
+                'amount' => 'required|numeric|min:0',
+                'min_amount' => 'nullable|numeric|min:0',
+                'max_amount' => 'nullable|numeric|min:0',
+            ]);
+        } elseif ($request->type === 'fundraise') {
+            $request->validate([
+                'amount' => 'nullable|numeric|min:0',
+                'min_amount' => 'required|numeric|min:0',
+                'max_amount' => 'required|numeric|min:0|gte:min_amount',
+            ]);
+        }
 
         $package->update($request->all());
 

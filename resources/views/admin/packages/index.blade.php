@@ -43,7 +43,11 @@
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                                    ₦{{ number_format($package->amount, 2) }}
+                                    @if($package->type === 'fundraise' && $package->min_amount && $package->max_amount)
+                                        ₦{{ number_format($package->min_amount, 2) }} - ₦{{ number_format($package->max_amount, 2) }}
+                                    @else
+                                        ₦{{ number_format($package->amount, 2) }}
+                                    @endif
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full

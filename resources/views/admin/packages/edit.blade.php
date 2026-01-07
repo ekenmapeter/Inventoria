@@ -28,11 +28,25 @@
                         <x-input-error class="mt-2" :messages="$errors->get('name')" />
                     </div>
 
-                    <!-- Amount -->
-                    <div>
+                    <!-- Amount (for subscription) -->
+                    <div id="amount_container">
                         <x-input-label for="amount" :value="__('Amount (₦)')" />
                         <x-text-input id="amount" name="amount" type="number" step="0.01" min="0" class="mt-1 block w-full" :value="old('amount', $package->amount)" required />
                         <x-input-error class="mt-2" :messages="$errors->get('amount')" />
+                    </div>
+
+                    <!-- Min Amount (for fundraise) -->
+                    <div id="min_amount_container" style="display: none;">
+                        <x-input-label for="min_amount" :value="__('Minimum Amount (₦)')" />
+                        <x-text-input id="min_amount" name="min_amount" type="number" step="0.01" min="0" class="mt-1 block w-full" :value="old('min_amount', $package->min_amount)" />
+                        <x-input-error class="mt-2" :messages="$errors->get('min_amount')" />
+                    </div>
+
+                    <!-- Max Amount (for fundraise) -->
+                    <div id="max_amount_container" style="display: none;">
+                        <x-input-label for="max_amount" :value="__('Maximum Amount (₦)')" />
+                        <x-text-input id="max_amount" name="max_amount" type="number" step="0.01" min="0" class="mt-1 block w-full" :value="old('max_amount', $package->max_amount)" />
+                        <x-input-error class="mt-2" :messages="$errors->get('max_amount')" />
                     </div>
 
                     <!-- Type -->
@@ -73,6 +87,41 @@
                     </x-button>
                 </div>
             </form>
+
+            <script>
+                document.getElementById('type').addEventListener('change', function() {
+                    const amountContainer = document.getElementById('amount_container');
+                    const minAmountContainer = document.getElementById('min_amount_container');
+                    const maxAmountContainer = document.getElementById('max_amount_container');
+                    const amountInput = document.getElementById('amount');
+                    const minAmountInput = document.getElementById('min_amount');
+                    const maxAmountInput = document.getElementById('max_amount');
+
+                    if (this.value === 'fundraise') {
+                        amountContainer.style.display = 'none';
+                        minAmountContainer.style.display = 'block';
+                        maxAmountContainer.style.display = 'block';
+                        amountInput.required = false;
+                        minAmountInput.required = true;
+                        maxAmountInput.required = true;
+                        amountInput.value = '';
+                    } else {
+                        amountContainer.style.display = 'block';
+                        minAmountContainer.style.display = 'none';
+                        maxAmountContainer.style.display = 'none';
+                        amountInput.required = true;
+                        minAmountInput.required = false;
+                        maxAmountInput.required = false;
+                        minAmountInput.value = '';
+                        maxAmountInput.value = '';
+                    }
+                });
+
+                // Trigger on page load in case of validation errors
+                document.addEventListener('DOMContentLoaded', function() {
+                    document.getElementById('type').dispatchEvent(new Event('change'));
+                });
+            </script>
         </x-card>
     </div>
 </x-admin-layout>

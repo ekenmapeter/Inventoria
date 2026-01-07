@@ -223,9 +223,16 @@
                                 <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">{{ Str::limit($package->description, 80) }}</p>
                             @endif
                             <div class="flex items-center justify-between">
-                                <span class="text-lg font-bold text-primary-600 dark:text-primary-400">₦{{ number_format($package->amount, 2) }}</span>
+                                <div>
+                                    @if($package->type === 'fundraise' && $package->min_amount && $package->max_amount)
+                                        <span class="text-lg font-bold text-primary-600 dark:text-primary-400">₦{{ number_format($package->min_amount, 2) }} - ₦{{ number_format($package->max_amount, 2) }}</span>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">Donation range</p>
+                                    @else
+                                        <span class="text-lg font-bold text-primary-600 dark:text-primary-400">₦{{ number_format($package->amount, 2) }}</span>
+                                    @endif
+                                </div>
                                 <x-button href="{{ route('payments.index') }}" variant="outline" size="sm">
-                                    Subscribe
+                                    {{ $package->type === 'fundraise' ? 'Donate' : 'Subscribe' }}
                                 </x-button>
                             </div>
                         </div>
