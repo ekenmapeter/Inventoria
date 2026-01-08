@@ -54,7 +54,11 @@ return [
 
         'stack' => [
             'driver' => 'stack',
+<<<<<<< HEAD
             'channels' => explode(',', env('LOG_STACK', 'single')),
+=======
+            'channels' => explode(',', (string) env('LOG_STACK', 'single')),
+>>>>>>> a1fd054322ab54ed5b743f83ff0083053b55df6f
             'ignore_exceptions' => false,
         ],
 

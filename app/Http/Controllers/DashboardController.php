@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+<<<<<<< HEAD
 use App\Models\Product;
 use App\Models\Sale;
 use App\Models\Purchase;
@@ -10,11 +11,20 @@ use App\Models\PurchaseItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+=======
+use App\Models\Deposit;
+use App\Models\Package;
+use App\Models\Payment;
+use App\Models\SiteSetting;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+>>>>>>> a1fd054322ab54ed5b743f83ff0083053b55df6f
 
 class DashboardController extends Controller
 {
     public function index()
     {
+<<<<<<< HEAD
         $products = Product::all(['id', 'item_code', 'description']); // Get products for dropdown
         $latestProducts = Product::with(['category', 'supplier', 'location'])
             ->orderBy('created_at', 'desc')
@@ -298,5 +308,66 @@ class DashboardController extends Controller
                 'error' => $e->getMessage()
             ], 500);
         }
+=======
+        $user = Auth::user();
+        $topics = $user->topics()->latest()->take(5)->get();
+        $posts = $user->posts()->latest()->take(5)->get();
+
+        $pendingPayment = Payment::where('user_id', $user->id)
+            ->where('status', 'pending')
+            ->latest()
+            ->first();
+
+        $pendingPayments = $pendingPayment ? 1 : 0;
+        $pendingDeposits = Deposit::where('user_id', $user->id)
+            ->where('status', 'pending')
+            ->count();
+
+        $monthlyDues = SiteSetting::get('monthly_dues_amount', 50.00);
+        $subscriptionAmount = SiteSetting::get('subscription_amount', 100.00);
+
+        // Calculate next payment due date (1st of next month)
+        $lastMonthlyDue = Payment::where('user_id', $user->id)
+            ->where('type', 'monthly_due')
+            ->where('status', 'approved')
+            ->latest()
+            ->first();
+
+        if ($lastMonthlyDue && $lastMonthlyDue->approved_at) {
+            // Get the first of the month after the last approved payment
+            $nextPaymentDue = $lastMonthlyDue->approved_at->copy()->addMonth()->startOfMonth();
+        } else {
+            // If no payment exists, get the first of next month from today
+            $nextPaymentDue = now()->addMonth()->startOfMonth();
+        }
+
+        // If the calculated date is in the past (shouldn't happen, but just in case), use next month
+        if ($nextPaymentDue->isPast()) {
+            $nextPaymentDue = now()->addMonth()->startOfMonth();
+        }
+
+        // Get payment history
+        $paymentHistory = Payment::where('user_id', $user->id)
+            ->latest()
+            ->take(10)
+            ->get();
+
+        // Get available packages
+        $packages = Package::where('is_active', true)->get();
+
+        return view('dashboard', compact(
+            'user',
+            'topics',
+            'posts',
+            'pendingPayment',
+            'pendingPayments',
+            'pendingDeposits',
+            'monthlyDues',
+            'subscriptionAmount',
+            'nextPaymentDue',
+            'paymentHistory',
+            'packages'
+        ));
+>>>>>>> a1fd054322ab54ed5b743f83ff0083053b55df6f
     }
 }

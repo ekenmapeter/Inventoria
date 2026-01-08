@@ -46,7 +46,11 @@ return [
             'username' => env('MAIL_USERNAME'),
             'password' => env('MAIL_PASSWORD'),
             'timeout' => null,
+<<<<<<< HEAD
             'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url(env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
+=======
+            'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url((string) env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
+>>>>>>> a1fd054322ab54ed5b743f83ff0083053b55df6f
         ],
 
         'ses' => [
@@ -85,6 +89,10 @@ return [
                 'smtp',
                 'log',
             ],
+<<<<<<< HEAD
+=======
+            'retry_after' => 60,
+>>>>>>> a1fd054322ab54ed5b743f83ff0083053b55df6f
         ],
 
         'roundrobin' => [
@@ -93,6 +101,10 @@ return [
                 'ses',
                 'postmark',
             ],
+<<<<<<< HEAD
+=======
+            'retry_after' => 60,
+>>>>>>> a1fd054322ab54ed5b743f83ff0083053b55df6f
         ],
 
     ],

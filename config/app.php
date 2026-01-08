@@ -13,7 +13,11 @@ return [
     |
     */
 
+<<<<<<< HEAD
     'name' => env('APP_NAME', 'Laravel'),
+=======
+    'name' => env('APP_NAME', 'Mini Forum'),
+>>>>>>> a1fd054322ab54ed5b743f83ff0083053b55df6f
 
     /*
     |--------------------------------------------------------------------------
@@ -101,7 +105,11 @@ return [
 
     'previous_keys' => [
         ...array_filter(
+<<<<<<< HEAD
             explode(',', env('APP_PREVIOUS_KEYS', ''))
+=======
+            explode(',', (string) env('APP_PREVIOUS_KEYS', ''))
+>>>>>>> a1fd054322ab54ed5b743f83ff0083053b55df6f
         ),
     ],
 

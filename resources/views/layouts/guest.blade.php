@@ -14,6 +14,7 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
+<<<<<<< HEAD
     <body class="font-sans text-gray-900 antialiased">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
             <div>
@@ -23,6 +24,17 @@
             </div>
 
             <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
+=======
+    <body class="font-sans text-gray-900 antialiased bg-gradient-to-br from-blue-50 to-indigo-100">
+        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
+            <div class="bg-white p-4 rounded-full shadow-lg mb-8">
+                <a href="/">
+                    <img src="{{ asset('images/welcome.png') }}" alt="Site Logo" class="w-16 h-16 object-contain" />
+                </a>
+            </div>
+
+            <div class="w-full sm:max-w-md px-6 py-4 bg-white shadow-xl overflow-hidden sm:rounded-xl border border-gray-200">
+>>>>>>> a1fd054322ab54ed5b743f83ff0083053b55df6f
                 {{ $slot }}
             </div>
         </div>

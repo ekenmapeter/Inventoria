@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+<<<<<<< HEAD
+=======
+use App\Notifications\WelcomeNotification;
+>>>>>>> a1fd054322ab54ed5b743f83ff0083053b55df6f
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -41,6 +45,12 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+<<<<<<< HEAD
+=======
+        // Send welcome notification
+        $user->notify(new WelcomeNotification());
+
+>>>>>>> a1fd054322ab54ed5b743f83ff0083053b55df6f
         event(new Registered($user));
 
         Auth::login($user);

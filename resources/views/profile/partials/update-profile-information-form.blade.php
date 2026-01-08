@@ -1,10 +1,18 @@
 <section>
     <header>
+<<<<<<< HEAD
         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
             {{ __('Profile Information') }}
         </h2>
 
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+=======
+        <h2 class="text-lg font-medium text-gray-900">
+            {{ __('Profile Information') }}
+        </h2>
+
+        <p class="mt-1 text-sm text-gray-600">
+>>>>>>> a1fd054322ab54ed5b743f83ff0083053b55df6f
             {{ __("Update your account's profile information and email address.") }}
         </p>
     </header>
@@ -13,11 +21,43 @@
         @csrf
     </form>
 
+<<<<<<< HEAD
     <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+=======
+    <form method="post" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="mt-6 space-y-6">
+>>>>>>> a1fd054322ab54ed5b743f83ff0083053b55df6f
         @csrf
         @method('patch')
 
         <div>
+<<<<<<< HEAD
+=======
+            <x-input-label for="profile_photo" :value="__('Profile Photo')" />
+            <div class="flex items-center gap-4 mb-4">
+                <x-user-avatar :user="$user" size="lg" />
+                <div>
+                    <input
+                        type="file"
+                        id="profile_photo"
+                        name="profile_photo"
+                        accept="image/*"
+                        class="block w-full text-sm text-gray-500 dark:text-gray-400
+                            file:mr-4 file:py-2 file:px-4
+                            file:rounded-full file:border-0
+                            file:text-sm file:font-semibold
+                            file:bg-primary-50 file:text-primary-700
+                            hover:file:bg-primary-100
+                            dark:file:bg-primary-900 dark:file:text-primary-300
+                            dark:hover:file:bg-primary-800"
+                    >
+                    <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Upload a profile photo (max 2MB, JPG/PNG/GIF)</p>
+                </div>
+            </div>
+            <x-input-error class="mt-2" :messages="$errors->get('profile_photo')" />
+        </div>
+
+        <div>
+>>>>>>> a1fd054322ab54ed5b743f83ff0083053b55df6f
             <x-input-label for="name" :value="__('Name')" />
             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
@@ -30,16 +70,27 @@
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                 <div>
+<<<<<<< HEAD
                     <p class="text-sm mt-2 text-gray-800 dark:text-gray-200">
                         {{ __('Your email address is unverified.') }}
 
                         <button form="send-verification" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
+=======
+                    <p class="text-sm mt-2 text-gray-800">
+                        {{ __('Your email address is unverified.') }}
+
+                        <button form="send-verification" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+>>>>>>> a1fd054322ab54ed5b743f83ff0083053b55df6f
                             {{ __('Click here to re-send the verification email.') }}
                         </button>
                     </p>
 
                     @if (session('status') === 'verification-link-sent')
+<<<<<<< HEAD
                         <p class="mt-2 font-medium text-sm text-green-600 dark:text-green-400">
+=======
+                        <p class="mt-2 font-medium text-sm text-green-600">
+>>>>>>> a1fd054322ab54ed5b743f83ff0083053b55df6f
                             {{ __('A new verification link has been sent to your email address.') }}
                         </p>
                     @endif
@@ -56,7 +107,11 @@
                     x-show="show"
                     x-transition
                     x-init="setTimeout(() => show = false, 2000)"
+<<<<<<< HEAD
                     class="text-sm text-gray-600 dark:text-gray-400"
+=======
+                    class="text-sm text-gray-600"
+>>>>>>> a1fd054322ab54ed5b743f83ff0083053b55df6f
                 >{{ __('Saved.') }}</p>
             @endif
         </div>
